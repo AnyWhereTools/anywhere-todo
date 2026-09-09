@@ -1,0 +1,1 @@
+{"schemaVersion":4,"uiApiVersion":1,"name":"待办 Todo","author":"AnyWhere","description":"待办、备注、优先级与系统提醒；关闭面板后仍可收到已登记通知。","icon":"checklist","actions":[{"id":"todo","title":"待办 Todo","contextMenu":false,"launcher":{"keywords":["todo","待办"]},"ui":{"entry":"index.html","height":650},"capabilities":["notifications"]}]}
