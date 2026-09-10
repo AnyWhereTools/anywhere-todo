@@ -1,6 +1,41 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"><title>待办 Todo</title></head><body>
-<header><div><h1>待办 Todo</h1><p>记录下一步，让系统在约定时间提醒。</p></div><button id="new" class="primary">＋ 新建待办</button></header>
-<div class="toolbar"><select id="filter" aria-label="待办视图"><option value="all">全部未完成</option><option value="today">今天</option><option value="upcoming">即将到期</option><option value="overdue">已逾期</option><option value="done">已完成</option></select><input id="search" type="search" placeholder="搜索标题和备注" aria-label="搜索待办"><button id="retry">检查提醒状态</button></div>
-<p id="message" role="status" aria-live="polite"></p><p id="notification-status" class="muted" role="status"></p>
-<form id="form" hidden><h2 id="form-title">新建待办</h2><label>标题<input id="title" required maxlength="200" placeholder="例如：提交项目报告"></label><label>备注<textarea id="note" rows="3" placeholder="补充信息"></textarea></label><div class="toolbar"><label>优先级<select id="priority"><option value="0">普通</option><option value="1">重要</option><option value="2">紧急</option></select></label><label>提醒时间<input id="due" type="datetime-local"></label><label>重复<select id="recurrence"><option value="none">不重复</option><option value="daily">每天</option><option value="weekly">每周</option></select></label></div><p class="muted">留空则不提醒。每天按所选时刻、每周按所选星期和时刻循环；首次为下一次匹配时间。完成重复待办会停止后续提醒。</p><div class="actions"><button type="submit" class="primary">保存</button><button id="cancel" type="button">取消</button></div></form>
-<div id="list" aria-label="待办列表"></div><script src="logic.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="style.css"><title>待办 Todo</title></head>
+<body>
+<div class="workspace">
+  <aside class="sidebar" aria-label="任务导航">
+    <div class="brand"><span class="brand-icon" aria-hidden="true">✓</span><div><strong>待办</strong><span>留点空间，专注当下。</span></div></div>
+    <nav id="views" aria-label="智能视图"></nav>
+    <div class="section-label"><span>我的清单</span><button id="add-list" class="icon-button" aria-label="新建清单" title="新建清单">＋</button></div>
+    <nav id="lists" aria-label="我的清单"></nav>
+    <form id="list-form" hidden><label class="sr-only" for="list-name">清单名称</label><input id="list-name" maxlength="30" placeholder="清单名称" required><div class="actions"><button type="submit">添加</button><button type="button" id="cancel-list" class="quiet">取消</button></div></form>
+    <div class="sidebar-foot"><span class="status-dot"></span>保存在这台 Mac 上</div>
+  </aside>
+  <main>
+    <header class="page-header"><div><p id="date-label" class="eyebrow"></p><h1 id="view-title">今天</h1><p id="view-description" class="subtitle">给今天留一点专注。</p></div><button id="new" class="primary">＋ 新建待办</button></header>
+    <div class="toolbar"><div class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索当前视图" aria-label="搜索待办"></div><select id="sort" aria-label="排序方式"><option value="smart">日期优先</option><option value="priority">优先级</option><option value="created">最近添加</option></select><button id="manage-list" class="quiet" hidden>管理清单</button></div>
+    <form id="quick-form" class="quick-add"><span aria-hidden="true">＋</span><input id="quick-title" maxlength="200" placeholder="添加一个待办，按回车保存" aria-label="快速添加待办" autocomplete="off"><button type="submit" aria-label="添加待办">↵</button></form>
+    <div class="feedback"><p id="message" role="status" aria-live="polite"></p><button id="undo" class="text-button" hidden>撤销</button></div>
+    <div id="load-error" class="error-box" hidden><p id="load-error-text"></p></div>
+    <section id="list" aria-label="待办列表"></section>
+    <footer class="content-foot"><span id="summary"></span><button id="reload" class="text-button">重新读取</button><span>⌘ N 新建 · ⌘ F 搜索</span></footer>
+    <details class="notification-box" id="notification-box"><summary><span id="reminder-label">提醒状态</span><span id="reminder-count"></span></summary><p id="notification-status" role="status"></p><button id="retry" class="text-button">检查提醒状态</button></details>
+  </main>
+  <section id="editor" class="editor" hidden aria-label="待办详情">
+    <form id="form" hidden>
+      <div class="editor-heading"><h2 id="form-title">新建待办</h2><button id="cancel" type="button" class="quiet">收起</button></div>
+      <label class="field">任务<input id="title" required maxlength="200" placeholder="下一步要做什么？" autocomplete="off"></label>
+      <label class="field">备注<textarea id="note" rows="4" placeholder="记下细节、链接或下一步…"></textarea></label>
+      <div class="field-pair"><label class="field">清单<select id="task-list"><option value="">收集箱</option></select></label><label class="field">优先级<select id="priority"><option value="0">普通</option><option value="1">重要</option><option value="2">紧急</option></select></label></div>
+      <label class="field">截止日期<input id="deadline" type="date"></label><div class="date-shortcuts"><button type="button" data-day="0">今天</button><button type="button" data-day="1">明天</button><button type="button" data-day="">无日期</button></div>
+      <div class="field-divider"></div>
+      <label class="field">提醒时间<input id="due" type="datetime-local"></label>
+      <label class="field">重复提醒<select id="recurrence"><option value="none">不重复</option><option value="daily">每天</option><option value="weekly">每周</option></select></label>
+      <p class="field-help" id="repeat-help">截止日期用于安排任务；提醒时间用于发送系统通知，可分别设置。</p>
+      <p id="edit-status" class="field-help">修改后点击保存</p>
+      <div class="editor-actions"><button type="submit" class="primary" id="save">保存</button><button id="delete" type="button" class="danger quiet" hidden>删除待办</button></div>
+    </form>
+  </section>
+</div>
+<script src="logic.js"></script><script src="app.js"></script>
+</body></html>
