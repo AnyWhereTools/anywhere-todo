@@ -1,8 +1,8 @@
 # Todo for AnyWhere
 
-[简体中文](README.zh.md) · [SDK](https://github.com/appdev/AnyWhere/blob/main/docs/plugin-services.md)
+[简体中文](README.zh.md) · [SDK](https://github.com/AnyWhereTools/AnyWhere/blob/main/docs/plugin-services.md)
 
-Import `appdev/anywhere-todo`, review and enable **待办 Todo**, then search `todo`. Requires the `notifications` host service. UI labels are Chinese.
+Import `AnyWhereTools/anywhere-todo`, review and enable **待办 Todo**, then search `todo`. Requires the `notifications` host service. UI labels are Chinese.
 
 Create/edit/complete/delete tasks with notes and priorities. Filter unfinished, today, upcoming, overdue and completed tasks, or search text. Save explicitly after editing. A blank reminder field means no notification.
 

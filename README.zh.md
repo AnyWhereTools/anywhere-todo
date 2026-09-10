@@ -1,8 +1,8 @@
 # 待办 Todo
 
-[English](README.md) · [SDK](https://github.com/appdev/AnyWhere/blob/main/docs/plugin-services.zh.md)
+[English](README.md) · [SDK](https://github.com/AnyWhereTools/AnyWhere/blob/main/docs/plugin-services.zh.md)
 
-从 GitHub 导入 `appdev/anywhere-todo`，审阅并启用“待办 Todo”，搜索 `todo` 或“待办”打开。需支持 `notifications` 服务的新版 AnyWhere。
+从 GitHub 导入 `AnyWhereTools/anywhere-todo`，审阅并启用“待办 Todo”，搜索 `todo` 或“待办”打开。需支持 `notifications` 服务的新版 AnyWhere。
 
 ## 使用
 
