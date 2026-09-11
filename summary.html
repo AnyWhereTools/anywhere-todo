@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<title>待办摘要</title>
+<style>
+  body { display:flex; align-items:center; gap:16px }
+  header { flex:0 0 66px; display:grid; gap:4px }
+  main { display:flex; gap:14px; flex:1; min-width:0 }
+  article { flex:1; min-width:0; border-left:2px solid var(--separator); padding-left:10px }
+  article.urgent { border-color:var(--accent) }
+  p { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:22px }
+  article small { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+</style>
+<header><strong>待办</strong><small id="count">读取中…</small></header>
+<main id="items" aria-label="最紧要的待办"></main>
+<script src="logic.js"></script>
+<script>
+  (async () => {
+    const state = Todo.readState(await anywhere.storage.get('todos'));
+    const pending = Todo.select(state.items, 'all');
+    document.getElementById('count').textContent = pending.length > 3 ? `还有 ${pending.length - 3} 项` : `${pending.length} 项待办`;
+    const main = document.getElementById('items');
+    if (!pending.length) { const p=document.createElement('p'); p.textContent='暂无待办，轻松开始新一天'; main.append(p); }
+    for (const item of pending.slice(0, 3)) {
+      const article=document.createElement('article'), title=document.createElement('p'), detail=document.createElement('small');
+      title.textContent=item.title; title.title=item.title;
+      const day=Todo.scheduledDay(item), today=Todo.dayKey();
+      const label=Todo.overdue(item) ? `已逾期 · ${day}` : day === today ? '今天' : day || '未设日期';
+      detail.textContent=label + (item.priority === 2 ? ' · 高优先级' : '');
+      article.classList.toggle('urgent', Todo.overdue(item) || item.priority === 2);
+      article.append(title, detail); main.append(article);
+    }
+  })();
+</script>
+</html>

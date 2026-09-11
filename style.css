@@ -10,3 +10,4 @@ main{padding:29px 30px 18px;min-width:0}.page-header{display:flex;justify-conten
 @media(prefers-color-scheme:dark){:root{--bg:#232329;--sidebar:#1d1d23;--fg:#ededf2;--muted:#9696a4;--line:#35353f;--field:#2a2a33;--accent:#a093ff;--tint:#363044;--danger:#ef8b90;--green:#78bba4;--shadow:0 12px 45px #0007}.brand-icon,.primary{color:#211b39!important}.tag.priority-1{background:#493e27;color:#e5c07b}.tag.priority-2{background:#492e37}.task-check{border-color:#686877}.task-check:checked:after{color:#211b39}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .field-help.error{color:var(--danger)}.notification-box summary:before{content:'◷'}
+.quick-add input:focus-visible{outline:none}.quick-add:focus-within{border-color:var(--accent)}
