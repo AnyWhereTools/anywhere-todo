@@ -4,7 +4,7 @@
 <body>
 <div class="workspace">
   <aside class="sidebar" aria-label="任务导航">
-    <div class="brand"><span class="brand-icon" aria-hidden="true">✓</span><div><strong>待办</strong><span>留点空间，专注当下。</span></div></div>
+    <div class="brand"><span class="brand-icon" aria-hidden="true">✓</span><div><strong>待办</strong><span>专注当下。</span></div></div>
     <nav id="views" aria-label="智能视图"></nav>
     <div class="section-label"><span>我的清单</span><button id="add-list" class="icon-button" aria-label="新建清单" title="新建清单">＋</button></div>
     <nav id="lists" aria-label="我的清单"></nav>
@@ -13,7 +13,7 @@
   </aside>
   <main>
     <header class="page-header"><div><p id="date-label" class="eyebrow"></p><h1 id="view-title">今天</h1><p id="view-description" class="subtitle">给今天留一点专注。</p></div><button id="new" class="primary">＋ 新建待办</button></header>
-    <div class="toolbar"><div class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索当前视图" aria-label="搜索待办"></div><select id="sort" aria-label="排序方式"><option value="smart">日期优先</option><option value="priority">优先级</option><option value="created">最近添加</option></select><button id="manage-list" class="quiet" hidden>管理清单</button></div>
+    <div class="toolbar"><div class="search-field"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="search" type="search" placeholder="搜索当前视图" aria-label="搜索待办"></div><select id="sort" aria-label="排序方式"><option value="smart">日期优先</option><option value="priority">优先级</option><option value="created">最近添加</option></select><button id="manage-list" class="quiet" hidden>管理清单</button></div>
     <form id="quick-form" class="quick-add"><span aria-hidden="true">＋</span><input id="quick-title" maxlength="200" placeholder="添加一个待办，按回车保存" aria-label="快速添加待办" autocomplete="off"><button type="submit" aria-label="添加待办">↵</button></form>
     <div class="feedback"><p id="message" role="status" aria-live="polite"></p><button id="undo" class="text-button" hidden>撤销</button></div>
     <div id="load-error" class="error-box" hidden><p id="load-error-text"></p></div>
